@@ -17,7 +17,7 @@ const Home = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Todo List With <span style={{ color: 'blue' }}>Next.js</span> and <span style={{ color: 'orange' }}>Context API</span> 🙂
         </h1>
         <div>
           <GenButton theme={"primary"} text={"Hello"} />

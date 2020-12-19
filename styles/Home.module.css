@@ -120,3 +120,11 @@
     flex-direction: column;
   }
 }
+
+.done {
+  color: lightgray;
+  text-decoration: line-through;
+  display: none;
+}
+
+

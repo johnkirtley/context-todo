@@ -1,10 +1,12 @@
 
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import GlobalContext from '../context/GlobalContext'
 import Menu from '../components/Menu';
 
 import styles from '../styles/Home.module.css'
 import { GenButton } from '../components/Button'
+import Task from '../components/Task';
+import TotalCompleted from '../components/TotalCompleted'
 
 
 
@@ -14,8 +16,10 @@ const Tasks = (props) => {
         task: '',
         completed: false
     })
+
     const allTasks = useContext(GlobalContext)
-    console.log(allTasks)
+
+
     const handleChange = (e) => {
         setTodo({
             ...todo,
@@ -36,20 +40,36 @@ const Tasks = (props) => {
         })
     }
 
+    const checkStatus = (id) => {
+        let target = allTasks[id]
+
+        target.completed = !target.completed
+
+        setTodo({
+            ...todo
+        })
+
+        console.log(target)
+    }
+
     return (
         <div className={styles.container}>
             <Menu />
             <div className={styles.main}>
                 <h1>Tasks Page</h1>
+                <TotalCompleted />
                 <label htmlFor="task" />
                 <input type="text" name="task" value={todo.task} onChange={handleChange} />
                 <GenButton text={"Add Task"} theme={"secondary"} method={() => addTask(todo)} />
-                {allTasks.length > 0 ? allTasks.map(entry => {
-                    console.log('All Tasks', allTasks)
-                    return (
-                        <p>{entry.task}</p>
-                    )
-                }) : 'No Tasks'}
+                {allTasks.map((entry, idx) => {
+                    return <Task idx={idx} entry={entry} checkStatus={checkStatus} setTodo={setTodo} />
+                })}
+            </div>
+            <div>
+                <h3>Completed</h3>
+                {allTasks.map((entry, idx) => {
+                    return entry.completed ? <p onClick={() => checkStatus(idx)}>{entry.task}</p> : ''
+                })}
             </div>
         </div>
     )

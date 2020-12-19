@@ -14,3 +14,16 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.done {
+  color: lightgray;
+  text-decoration: line-through;
+  display: none;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+
+}
