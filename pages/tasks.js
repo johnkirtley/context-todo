@@ -7,6 +7,7 @@ import styles from '../styles/Home.module.css'
 import { GenButton } from '../components/Button'
 import Task from '../components/Task';
 import TotalCompleted from '../components/TotalCompleted'
+import TotalLeft from '../components/TotalLeft';
 
 
 
@@ -57,19 +58,27 @@ const Tasks = (props) => {
             <Menu />
             <div className={styles.main}>
                 <h1>Tasks Page</h1>
-                <TotalCompleted />
+                <div className={styles.flex}>
+                    <TotalCompleted />
+                    <TotalLeft />
+                </div>
                 <label htmlFor="task" />
-                <input type="text" name="task" value={todo.task} onChange={handleChange} />
+                <input className={styles.input} type="text" name="task" value={todo.task} onChange={handleChange} />
                 <GenButton text={"Add Task"} theme={"secondary"} method={() => addTask(todo)} />
-                {allTasks.map((entry, idx) => {
-                    return <Task idx={idx} entry={entry} checkStatus={checkStatus} setTodo={setTodo} />
-                })}
-            </div>
-            <div>
-                <h3>Completed</h3>
-                {allTasks.map((entry, idx) => {
-                    return entry.completed ? <p onClick={() => checkStatus(idx)}>{entry.task}</p> : ''
-                })}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gridGap: '4rem', marginTop: '2rem' }}>
+                    <div>
+                        <h3 style={{ textAlign: 'center' }}>To-Do</h3>
+                        {allTasks.map((entry, idx) => {
+                            return <Task idx={idx} entry={entry} checkStatus={checkStatus} setTodo={setTodo} />
+                        })}
+                    </div>
+                    <div>
+                        <h3 style={{ textAlign: 'center' }}>Completed</h3>
+                        {allTasks.map((entry, idx) => {
+                            return entry.completed ? <div style={{ display: 'flex', justifyContent: 'space-around' }}><p>{entry.task}</p><p onClick={() => checkStatus(idx)}>Undo</p></div> : ''
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     )

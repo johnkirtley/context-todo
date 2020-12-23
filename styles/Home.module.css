@@ -127,4 +127,14 @@
   display: none;
 }
 
+.flex {
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
+.input {
+  margin: 1rem 0;
+}
+
 
